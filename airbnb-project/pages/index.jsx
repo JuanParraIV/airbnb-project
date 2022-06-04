@@ -4,6 +4,7 @@ import Header from "../components/Header";
 import Banner from "../components/Banner";
 import SmallCard from "../components/SmallCard";
 import MediumCard from "../components/MediumCard";
+import LargeCard from "../components/LargeCard";
 
 const Home = ({ exploteData,cardsData}) => {
 
@@ -47,6 +48,14 @@ const Home = ({ exploteData,cardsData}) => {
             ))}
           </div>
         </section>
+
+        <LargeCard
+          className=""
+          img='https://links.papareact.com/4cj'
+          title='The Greatest Outdoors'
+          description='Wishlists curated by Airbnb'
+          buttonText='Get Inspired'
+        />
       </main>
     </div>
   );
@@ -60,6 +69,7 @@ export const getStaticProps = async () => {
     (res) => res.json()
   );
 
+
   return {
     props: {
       exploteData,
@@ -67,6 +77,6 @@ export const getStaticProps = async () => {
     },
   };
 
-  
+
 };
 export default Home;
