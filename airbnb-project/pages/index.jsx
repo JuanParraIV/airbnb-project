@@ -5,6 +5,7 @@ import Banner from "../components/Banner";
 import SmallCard from "../components/SmallCard";
 import MediumCard from "../components/MediumCard";
 import LargeCard from "../components/LargeCard";
+import Footer from "../components/Footer";
 
 const Home = ({ exploteData,cardsData}) => {
 
@@ -57,6 +58,11 @@ const Home = ({ exploteData,cardsData}) => {
           buttonText='Get Inspired'
         />
       </main>
+
+      <Footer
+      className=''
+      
+      />
     </div>
   );
 };
