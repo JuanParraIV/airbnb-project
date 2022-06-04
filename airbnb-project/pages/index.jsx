@@ -3,9 +3,10 @@ import Image from "next/image";
 import Header from "../components/Header";
 import Banner from "../components/Banner";
 import SmallCard from "../components/SmallCard";
+import MediumCard from "../components/MediumCard";
 
-const Home = ({ exploteData }) => {
-  console.log(exploteData);
+const Home = ({ exploteData,cardsData}) => {
+
   return (
     <div className="">
       <Head>
@@ -32,6 +33,20 @@ const Home = ({ exploteData }) => {
               ))}
           </div>
         </section>
+
+        <section className="pt-6">
+          <h2 className="text-4xl font-semibold py-8">Live Anywhere</h2>
+
+          <div className="flex space-x-3 overflow-scroll scrollbar-hide p-3 -ml-3">
+            {cardsData && cardsData?.map(({img,title},index)=>(
+              <MediumCard
+                key={index}
+                img={img}
+                title={title}
+              />
+            ))}
+          </div>
+        </section>
       </main>
     </div>
   );
@@ -41,11 +56,17 @@ export const getStaticProps = async () => {
   const exploteData = await fetch("https://links.papareact.com/pyp").then(
     (res) => res.json()
   );
+  const cardsData = await fetch("https://links.papareact.com/zp1").then(
+    (res) => res.json()
+  );
 
   return {
     props: {
       exploteData,
+      cardsData
     },
   };
+
+  
 };
 export default Home;
