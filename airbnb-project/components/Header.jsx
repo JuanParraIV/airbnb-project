@@ -10,12 +10,14 @@ import {
   UserIcon,
 } from "@heroicons/react/solid";
 import { DateRangePicker } from "react-date-range";
+import { useRouter } from "next/router";
 
-const Header = () => {
+const Header = ({ placeholder }) => {
   const [searchInput, setSearchInput] = useState("");
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
   const [nºofGuests, setNºofGuests] = useState(1);
+  const router = useRouter();
 
   const selectionRange = {
     startDate,
@@ -30,12 +32,28 @@ const Header = () => {
 
   const resetInput = () => {
     setSearchInput("");
-  }
+  };
+
+  const handleSearch = (e) => {
+    e.preventDefault();
+    router.push({
+      pathname: "/searchResult",
+      query: {
+        location: searchInput,
+        startDate: startDate.toISOString(),
+        endDate: endDate.toISOString(),
+        nºofGuests,
+      },
+    });
+  };
   return (
     /* navContainer */
     <header className="sticky top-0 z-50 grid grid-cols-3 bg-white shadow-md p-5 h-auto md:px-10">
       {/* logo left container */}
-      <div className="relative flex items-center h-10 cursor-pointer my-auto">
+      <div
+        onClick={() => router.push("/")}
+        className="relative flex items-center h-10 cursor-pointer my-auto"
+      >
         <Image
           src="https://links.papareact.com/qd3"
           layout="fill"
@@ -51,7 +69,7 @@ const Header = () => {
           onChange={(e) => setSearchInput(e.target.value)}
           className=" flex-grow pl-5 bg-transparent outline-none focus:outline-none text-sm text-gray-600 placeholder-gray-400"
           type="text"
-          placeholder="Start your search"
+          placeholder={placeholder ? placeholder : "Start your search"}
           name=""
           id=""
         />
@@ -92,13 +110,16 @@ const Header = () => {
             />
           </div>
           <div className="flex">
-
             <button
-            onClick={resetInput}
-            className="flex-grow text-gray-500 font-semibold cursor-pointer">
+              onClick={resetInput}
+              className="flex-grow text-gray-500 font-semibold cursor-pointer"
+            >
               Cancel
             </button>
-            <button className="flex-grow text-red-400  font-semibold py-2 px-4 rounded-full cursor-pointer">
+            <button
+              onClick={handleSearch}
+              className="flex-grow text-red-400  font-semibold py-2 px-4 rounded-full cursor-pointer"
+            >
               Search
             </button>
           </div>
